@@ -1,33 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { TbMenu2 } from "react-icons/tb";
 import { TbMenu3 } from "react-icons/tb";
-
 import { RiShoppingBag4Fill } from "react-icons/ri";
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
-
+  const [isScrolled, serIsScrolled] = useState(false);
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="bg-white fixed top-0 right-0 left-0">
+    <header
+      className={`bg-white fixed top-0 right-0 left-0 ${
+        isScrolled ? "drop-shadow-2xl" : ""
+      }`}
+    >
       <nav className="flex px-10 max-w-[1400px] mx-auto h-[12vh] md:h-[14vh] items-center justify-between">
         <a href="#" className="text-3xl font-bold">
           Gr<span className="text-orange-500">O</span>cify
         </a>
         {/* Desktop Menu */}
         <ul className="md:flex hidden items-center gap-x-15">
-          <li>
-            <a
-              href="#"
-              className="font-semibold tracking-wider text-orange-500 hover:text-orange-500"
-            >
-              Home
-            </a>
-          </li>
+          <a
+            href="#"
+            className="font-semibold tracking-wider text-orange-500 hover:text-orange-500"
+          >
+            Home
+          </a>
+
           <li>
             <a
               href="#"
